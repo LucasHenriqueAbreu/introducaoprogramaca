@@ -8,11 +8,8 @@ pos7 = None
 pos8 = None
 pos9 = None
 
-print('''
-Para jogar, digite o número correspondente 
-à posição no tabuleiro para fazer sua jogada nela.
-Por exemplo, digamos que você queira jogar no centro, 
-então você digita 5.
+def mostrar_tabuleiro():
+    print('''
         |     |     
       {0} |  {1}  | {2}  
     ____|_____|_____
@@ -22,9 +19,17 @@ então você digita 5.
         |     |     
       {6} |  {7}  | {8}  
         |     |     
-'''.format(pos1 or 1,pos2 or 2,pos3 or 3, \
-    pos4 or 4,pos5 or 5,pos6 or 6,pos7 or 7, \
-        pos8 or 8,pos9 or 9,))
+    '''.format(pos1 or 1,pos2 or 2,pos3 or 3, \
+        pos4 or 4,pos5 or 5,pos6 or 6,pos7 or 7, \
+            pos8 or 8,pos9 or 9,))
+
+print('''
+Para jogar, digite o número correspondente 
+à posição no tabuleiro para fazer sua jogada nela.
+Por exemplo, digamos que você queira jogar no centro, 
+então você digita 5.
+''')
+mostrar_tabuleiro()
 
 turno_incorreto = True
 jogador_atual = None
@@ -44,20 +49,8 @@ while turno_incorreto:
 jogo_acabou = False
 
 while not jogo_acabou:
-    print('''
-    O jogador da vez é {9}
-            |     |     
-         {0}  |  {1}  | {2}  
-        ____|_____|_____
-            |     |     
-         {3}  |  {4}  | {5}  
-        ____|_____|_____
-            |     |     
-         {6}  |  {7}  | {8}  
-            |     |     
-    '''.format(pos1 or 1,pos2 or 2,pos3 or 3, \
-        pos4 or 4,pos5 or 5,pos6 or 6,pos7 or 7, \
-            pos8 or 8,pos9 or 9, jogador_atual))
+    print('O jogador da vez é {}'.format(jogador_atual))
+    mostrar_tabuleiro()
     
     opcao_incorreta = True
     posicao_ocupada = True
@@ -84,7 +77,7 @@ while not jogo_acabou:
                 pos1 = jogador_atual
                 posicao_ocupada = False
             else:
-                print('Posição ocupada pelo jogador {pos1}, tente outra, seu apedeuta!')
+                print('Posição ocupada pelo jogador, tente outra, seu apedeuta!')
         elif opcao_tabuleiro == 2:
             if pos2 == None:
                 pos2 = jogador_atual
@@ -164,10 +157,21 @@ while not jogo_acabou:
         jogo_acabou = True
         print('O jogador vencedor é {}'.format(jogador_atual))
 
+    elif pos1 != None and \
+        pos2 != None and \
+        pos3 != None and \
+        pos4 != None and \
+        pos5 != None and \
+        pos6 != None and \
+        pos7 != None and \
+        pos8 != None and \
+        pos9 != None:
+        jogo_acabou = True
+        print('Deu velha!!') 
+
+    mostrar_tabuleiro()
     
     if jogador_atual == 'X':
         jogador_atual = 'O'
     elif jogador_atual == 'O':
         jogador_atual = 'X'
-
-        

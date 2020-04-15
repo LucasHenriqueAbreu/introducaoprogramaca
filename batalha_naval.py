@@ -18,6 +18,8 @@ def mostrar_tabuleiro():
         for j, coluna in enumerate(linha):
             if i <= 3:
                 valor_coluna = 'X'
+                if coluna != '\033[33m╧\033[m' and coluna is not None:
+                    valor_coluna = coluna
                 print('\033[31m| {} |'.format(valor_coluna), end='\033[m')
             if i > 3:
                 valor_coluna = coluna or 'X'
@@ -115,9 +117,12 @@ while not jogo_acabou:
                             pontos_usuario += 1
                             tabuleiro[linha][coluna] = '\033[37m☠\033[m'
                             print('Vocế destruiu um barco do inimigo')
+                            mostrar_tabuleiro()
                             break
                         else:
+                            tabuleiro[linha][coluna] = '\033[34m♒\033[m'
                             print('Infelizmente você errou!')
+                            mostrar_tabuleiro()
                 else:
                     print('Você está tentando jogar um míssil no seu campo de batalha')
                     print('Tente novamente')
@@ -125,4 +130,6 @@ while not jogo_acabou:
                 print('Você precisa informar linha e coluna, respectivamente')
                 print('Tente novamente')
     else:
-        # sortear um posição para mandar o míssil
+        print('O computador joga')
+
+    

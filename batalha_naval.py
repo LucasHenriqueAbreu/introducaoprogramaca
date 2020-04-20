@@ -6,6 +6,15 @@ from random import randint
 from time import sleep
 import sys
 
+tabuleiro = []
+#inicializa o tabuleiro
+for x in range(0, 8):
+    linha = []
+    for j in range(0, 8):
+        linha.append(None)
+    
+    tabuleiro.append(linha)
+
 def mostrar_tabuleiro():
     print('\033[34m=-'*20)
     print('\033[31m Máquina')
@@ -33,15 +42,6 @@ def carregando():
         sys.stdout.flush()
     print()
 
-tabuleiro = []
-
-for x in range(0, 8):
-    linha = []
-    for j in range(0, 8):
-        linha.append(None)
-    
-    tabuleiro.append(linha)
-
 mostrar_tabuleiro()
 
 print('\033[34m=-'*20)
@@ -50,26 +50,33 @@ print('Informe a linha e coluna de onde quer adicionar seu barco, lembre-se que 
 print('\033[34m=-'*20, end='\033[m')
 print()
 
+
 # Perdir 3 x para o usuário informar onde ele quer por o barco
 for i in range(0, 3):
     linha = 0
     coluna = 0
     while True:
-        linha = input('Informe a linha que deseja adcionar seu {}º barco: '.format(i + 1))
-        coluna = input('Informe a coluna que deseja adcionar seu {}º barco: '.format(i + 1))
-
-        if not linha.isnumeric() or not coluna.isnumeric():
-            print('\033[31mÔOooo, apedeuta! Linhas e colunas só podem ser números.\033[m')
-        elif int(linha) <= 3:
-            print('\033[31mÔooo, apedeuta! Eu não te falei que a sua área era a verde? Esconha uma linha maior que 3\033[m')
-        elif int(linha) > 7 or int(coluna) > 7:
-            print('\033[31mÔOooo, apedeuta! Informe um índice que exista no tabuleiro.\033[m')
-        elif tabuleiro[int(linha)][int(coluna)] is not None:
-            print('\033[31mÔooo, apedeuta! Você já adicionou um barco nessa posição!\033[m')
+        linha_coluna = input('Informe a linha e coluna respectivamente que deseja adcionar seu {}º barco: '.format(i + 1))
+        if len(linha_coluna) == 2:
+            linha = linha_coluna[0]
+            coluna = linha_coluna[1]
+            if not linha.isnumeric() or not coluna.isnumeric():
+                print('\033[31mÔOooo, apedeuta! Linhas e colunas só podem ser números.\033[m')
+            else:
+                coluna = int(coluna)
+                linha = int(linha)
+                if linha <= 3:
+                    print('\033[31mÔooo, apedeuta! Eu não te falei que a sua área era a verde? Esconha uma linha maior que 3\033[m')
+                elif linha > 7 or coluna > 7:
+                    print('\033[31mÔOooo, apedeuta! Informe um índice que exista no tabuleiro.\033[m')
+                elif tabuleiro[linha][coluna] is not None:
+                    print('\033[31mÔooo, apedeuta! Você já adicionou um barco nessa posição!\033[m')
+                else:
+                    break
         else:
-            break
+            print('Informe linha e coluna, respectivamente!')
     
-    tabuleiro[int(linha)][int(coluna)] = '\033[33m╧\033[m'
+    tabuleiro[linha][coluna] = '\033[33m╧\033[m'
 
 
 print('\033[34m=-'*20)
